@@ -83,23 +83,13 @@ export default async function ProfilePage({
             </select>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className="block font-mono text-xs uppercase mb-1">Pekerjaan</label>
-            <input
-              name="pekerjaan"
-              defaultValue={profile?.pekerjaan ?? ""}
-              className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
-            />
-          </div>
-          <div>
-            <label className="block font-mono text-xs uppercase mb-1">Perusahaan</label>
-            <input
-              name="perusahaan"
-              defaultValue={profile?.perusahaan ?? ""}
-              className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
-            />
-          </div>
+        <div>
+          <label className="block font-mono text-xs uppercase mb-1">Pekerjaan</label>
+          <input
+            name="pekerjaan"
+            defaultValue={profile?.pekerjaan ?? ""}
+            className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
+          />
         </div>
         <div>
           <label className="block font-mono text-xs uppercase mb-1">Bio Singkat</label>

@@ -45,7 +45,6 @@ export default async function AlumniProfilePage({
           {person.pekerjaan && (
             <p className="font-body text-sm text-slate mt-1">
               {person.pekerjaan}
-              {person.perusahaan ? ` di ${person.perusahaan}` : ""}
             </p>
           )}
           {(person.desa || person.kecamatan || person.kabupaten || person.provinsi) && (

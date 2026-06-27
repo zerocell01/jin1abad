@@ -18,7 +18,6 @@ export async function updateProfile(formData: FormData) {
     angkatan: angkatanRaw ? Number(angkatanRaw) : null,
     kelas: formData.get("kelas") as string,
     pekerjaan: formData.get("pekerjaan") as string,
-    perusahaan: formData.get("perusahaan") as string,
     bio: formData.get("bio") as string,
     alamat: formData.get("alamat") as string,
     desa: formData.get("desa") as string,

@@ -8,6 +8,7 @@ ALTER TABLE public.profiles DROP COLUMN IF EXISTS jurusan;
 ALTER TABLE public.profiles DROP COLUMN IF EXISTS linkedin_url;
 ALTER TABLE public.profiles DROP COLUMN IF EXISTS kota;
 ALTER TABLE public.profiles DROP COLUMN IF EXISTS asal_kota;
+ALTER TABLE public.profiles DROP COLUMN IF EXISTS perusahaan;
 
 -- 2. Tambah kolom baru untuk Desa dan Kecamatan
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS desa text;
