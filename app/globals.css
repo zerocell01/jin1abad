@@ -3,17 +3,17 @@
 @tailwind utilities;
 
 body {
-  background-color: #F6F1E7;
-  color: #232323;
+  background-color: #FDFBF7;
+  color: #1A1A1A;
 }
 
 /* Garis hias bergaya buku tahunan */
 .rule {
-  border-top: 1px solid #DCD3C0;
+  border-top: 1px solid #E6DFD3;
 }
 
 .rule-thick {
-  border-top: 3px solid #232323;
+  border-top: 3px solid #1A1A1A;
 }
 
 /* Cap/stempel angkatan */
@@ -24,8 +24,8 @@ body {
   width: 3.25rem;
   height: 3.25rem;
   border-radius: 9999px;
-  border: 2px solid #7A2E2E;
-  color: #7A2E2E;
+  border: 2px solid #1E3A2F;
+  color: #1E3A2F;
   font-family: var(--font-mono);
   font-size: 0.7rem;
   font-weight: 600;

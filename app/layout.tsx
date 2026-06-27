@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
+import { Playfair_Display, Inter, JetBrains_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
-const fraunces = Fraunces({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-fraunces",
-  weight: ["400", "500", "600"],
+  variable: "--font-playfair",
+  weight: ["400", "500", "600", "700"],
 });
 
 const inter = Inter({
@@ -48,7 +48,7 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body
-        className={`${fraunces.variable} ${inter.variable} ${mono.variable} font-body`}
+        className={`${playfair.variable} ${inter.variable} ${mono.variable} font-body`}
       >
         <Navbar />
         <main className="max-w-5xl mx-auto px-5 py-10">{children}</main>

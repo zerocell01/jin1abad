@@ -8,18 +8,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        paper: "#F6F1E7",
-        ink: "#232323",
+        paper: "#FDFBF7",
+        ink: "#1A1A1A",
         maroon: {
-          DEFAULT: "#7A2E2E",
-          dark: "#5C2222",
+          DEFAULT: "#1E3A2F", // Forest Green mapped as maroon to avoid code rewrites
+          dark: "#12241D",
         },
-        gold: "#C9A227",
-        slate: "#46566B",
-        line: "#DCD3C0",
+        gold: "#C5A880",
+        slate: "#5A6E7F",
+        line: "#E6DFD3",
       },
       fontFamily: {
-        display: ["var(--font-fraunces)"],
+        display: ["var(--font-playfair)"],
         body: ["var(--font-inter)"],
         mono: ["var(--font-mono)"],
       },
