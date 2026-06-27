@@ -47,18 +47,7 @@ export default async function AlbumDetailPage({
 
   if (!album) notFound();
 
-  // Get user profile to check if admin
-  let isAdmin = false;
-  if (user) {
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("role")
-      .eq("id", user.id)
-      .single();
-    isAdmin = profile?.role === "admin";
-  }
-
-  const isEditable = !!user && (album.created_by === user.id || isAdmin);
+  const isEditable = !!user && album.created_by === user.id;
 
   const { data: photos } = await supabase
     .from("photos")
