@@ -23,10 +23,10 @@ export default async function HomePage() {
           Jin1abad
         </p>
         <h1 className="font-display text-5xl leading-tight max-w-xl">
-          Alumni Matholi&apos;ul Falah Angkatan 2012.
+          Mutakhorrijin PIM 2012.
         </h1>
         <p className="font-body text-slate mt-4 max-w-md">
-          Tempat Jin1abad tetap saling terhubung — cari teman seangkatan,
+          Tempat Jin1abad tetap saling terhubung - cari teman seangkatan,
           baca cerita alumni, dan simpan kenangan lewat foto bersama.
         </p>
         <div className="flex gap-3 mt-7">

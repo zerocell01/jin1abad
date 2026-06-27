@@ -21,6 +21,7 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
   title: "Jin1abad — Alumni Matholi'ul Falah Angkatan 2012",
   description:
     "Website Alumni Matholi'ul Falah Angkatan 2012 — cerita, galeri, dan direktori Jin1abad.",
