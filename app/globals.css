@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 body {
-  background-color: #F8FAFC;
-  color: #0F172A;
+  background-color: #EAE5DB;
+  color: #1C242B;
 }
 
 /* Garis hias bergaya buku tahunan */
 .rule {
-  border-top: 1px solid #E2E8F0;
+  border-top: 1px solid #DDD7CD;
 }
 
 .rule-thick {
