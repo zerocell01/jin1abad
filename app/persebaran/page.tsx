@@ -86,6 +86,10 @@ const COORDINATES: Record<string, { lat: number; lng: number }> = {
   "sidoarjo": { lat: -7.4478, lng: 112.7183 },
   "pasuruan": { lat: -7.6417, lng: 112.9056 },
   "probolinggo": { lat: -7.7542, lng: 113.2158 },
+
+  // Grobogan
+  "grobogan": { lat: -7.0300, lng: 110.9211 },
+  "penawangan": { lat: -7.0922, lng: 110.8306 },
 };
 
 const PROVINCE_COORDINATES: Record<string, { lat: number; lng: number }> = {
