@@ -90,6 +90,7 @@ const COORDINATES: Record<string, { lat: number; lng: number }> = {
   // Grobogan
   "grobogan": { lat: -7.0300, lng: 110.9211 },
   "penawangan": { lat: -7.0922, lng: 110.8306 },
+  "kluwan": { lat: -7.0903, lng: 110.8472 },
 };
 
 const PROVINCE_COORDINATES: Record<string, { lat: number; lng: number }> = {
@@ -129,10 +130,13 @@ const PROVINCE_COORDINATES: Record<string, { lat: number; lng: number }> = {
   "papua barat": { lat: -1.3361, lng: 133.1747 },
 };
 
-function getCoordinates(kecamatan?: string, kabupaten?: string, provinsi?: string) {
+function getCoordinates(desa?: string, kecamatan?: string, kabupaten?: string, provinsi?: string) {
+  const normDesa = desa?.toLowerCase().trim() || "";
   const normKec = kecamatan?.toLowerCase().trim() || "";
   const normKab = kabupaten?.toLowerCase().trim() || "";
   const normProv = provinsi?.toLowerCase().trim() || "";
+
+  if (normDesa && COORDINATES[normDesa]) return COORDINATES[normDesa];
 
   if (COORDINATES[normKec]) return COORDINATES[normKec];
   
@@ -173,11 +177,12 @@ export default async function PersebaranPage({
 
   const { data: profiles } = await supabase
     .from("profiles")
-    .select("full_name, angkatan, provinsi, kecamatan, kabupaten, asal_provinsi, asal_kecamatan, asal_kabupaten");
+    .select("full_name, angkatan, provinsi, kecamatan, kabupaten, desa, asal_provinsi, asal_kecamatan, asal_kabupaten, asal_desa");
 
   const provField = mode === "asal" ? "asal_provinsi" : "provinsi";
   const kecamatanField = mode === "asal" ? "asal_kecamatan" : "kecamatan";
   const kabupatenField = mode === "asal" ? "asal_kabupaten" : "kabupaten";
+  const desaField = mode === "asal" ? "asal_desa" : "desa";
   const filterParamProv = mode === "asal" ? "asal_provinsi" : "provinsi";
   const filterParamKec = mode === "asal" ? "asal_kecamatan" : "kecamatan";
   const filterParamKab = mode === "asal" ? "asal_kabupaten" : "kabupaten";
@@ -221,11 +226,20 @@ export default async function PersebaranPage({
 
     const kec = p[kecamatanField]?.trim() || "";
     const kab = p[kabupatenField]?.trim() || "";
-    const name = kec ? `Kec. ${kec}, ${kab}` : kab ? `Kab. ${kab}` : prov;
-    const key = `${prov}-${kab}-${kec}`.toLowerCase();
+    const desa = p[desaField]?.trim() || "";
+    
+    const name = desa 
+      ? `Desa ${desa}, Kec. ${kec}, ${kab}` 
+      : kec 
+        ? `Kec. ${kec}, ${kab}` 
+        : kab 
+          ? `Kab. ${kab}` 
+          : prov;
+          
+    const key = `${prov}-${kab}-${kec}-${desa}`.toLowerCase();
 
     if (!mapData[key]) {
-      const coords = getCoordinates(kec, kab, prov);
+      const coords = getCoordinates(desa, kec, kab, prov);
       mapData[key] = {
         name,
         count: 0,
