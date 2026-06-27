@@ -1,17 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Inter, JetBrains_Mono } from "next/font/google";
+import { Outfit, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
-const playfair = Playfair_Display({
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-outfit",
   weight: ["400", "500", "600", "700"],
 });
 
-const inter = Inter({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-jakarta",
 });
 
 const mono = JetBrains_Mono({
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#7A2E2E",
+  themeColor: "#4F46E5",
 };
 
 export default function RootLayout({
@@ -48,7 +48,7 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body
-        className={`${playfair.variable} ${inter.variable} ${mono.variable} font-body`}
+        className={`${outfit.variable} ${jakarta.variable} ${mono.variable} font-body`}
       >
         <Navbar />
         <main className="max-w-5xl mx-auto px-5 py-10">{children}</main>

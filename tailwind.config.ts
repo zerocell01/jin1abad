@@ -8,19 +8,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        paper: "#FDFBF7",
-        ink: "#1A1A1A",
+        white: "#1E293B", // Override white as Slate-800 for card backgrounds in dark mode
+        paper: "#0F172A", // Dark Slate background
+        ink: "#F8FAFC",   // Off-white text
         maroon: {
-          DEFAULT: "#1E3A2F", // Forest Green mapped as maroon to avoid code rewrites
-          dark: "#12241D",
+          DEFAULT: "#6366F1", // Indigo mapped as maroon to avoid code rewrites
+          dark: "#4F46E5",
         },
-        gold: "#C5A880",
-        slate: "#5A6E7F",
-        line: "#E6DFD3",
+        gold: "#10B981",    // Emerald green accents
+        slate: "#94A3B8",   // Light slate text
+        line: "#334155",    // Slate-700 for borders
       },
       fontFamily: {
-        display: ["var(--font-playfair)"],
-        body: ["var(--font-inter)"],
+        display: ["var(--font-outfit)"],
+        body: ["var(--font-jakarta)"],
         mono: ["var(--font-mono)"],
       },
       borderRadius: {
