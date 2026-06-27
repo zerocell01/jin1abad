@@ -36,6 +36,8 @@ export default async function AlbumDetailPage({
   params: { id: string };
 }) {
   const supabase = createClient();
+  const { data: userData } = await supabase.auth.getUser();
+  const user = userData.user;
 
   const { data: album } = await supabase
     .from("albums")
@@ -44,6 +46,19 @@ export default async function AlbumDetailPage({
     .single();
 
   if (!album) notFound();
+
+  // Get user profile to check if admin
+  let isAdmin = false;
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+    isAdmin = profile?.role === "admin";
+  }
+
+  const isEditable = !!user && (album.created_by === user.id || isAdmin);
 
   const { data: photos } = await supabase
     .from("photos")
@@ -65,7 +80,12 @@ export default async function AlbumDetailPage({
       {!photos || photos.length === 0 ? (
         <p className="text-slate font-body">Belum ada foto di album ini.</p>
       ) : (
-        <PhotoLightbox photos={photos} albumTitle={album.title} />
+        <PhotoLightbox
+          photos={photos}
+          albumTitle={album.title}
+          albumId={album.id}
+          isEditable={isEditable}
+        />
       )}
     </div>
   );
