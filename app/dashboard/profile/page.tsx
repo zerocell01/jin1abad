@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { updateProfile } from "./actions";
 import Avatar from "@/components/Avatar";
+import AddressSelector from "@/components/AddressSelector";
 
 export default async function ProfilePage({
   searchParams,
@@ -108,42 +109,13 @@ export default async function ProfilePage({
           <p className="font-body text-xs text-slate mb-3">
             Kampung halaman / daerah asal kamu sebelum merantau (kalau ada).
           </p>
-          <div className="grid grid-cols-2 gap-3 mb-3">
-            <div>
-              <label className="block font-mono text-xs uppercase mb-1">Desa</label>
-              <input
-                name="asal_desa"
-                defaultValue={profile?.asal_desa ?? ""}
-                className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
-              />
-            </div>
-            <div>
-              <label className="block font-mono text-xs uppercase mb-1">Kecamatan</label>
-              <input
-                name="asal_kecamatan"
-                defaultValue={profile?.asal_kecamatan ?? ""}
-                className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-3 mb-3">
-            <div>
-              <label className="block font-mono text-xs uppercase mb-1">Kabupaten</label>
-              <input
-                name="asal_kabupaten"
-                defaultValue={profile?.asal_kabupaten ?? ""}
-                className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
-              />
-            </div>
-            <div>
-              <label className="block font-mono text-xs uppercase mb-1">Provinsi</label>
-              <input
-                name="asal_provinsi"
-                defaultValue={profile?.asal_provinsi ?? ""}
-                className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
-              />
-            </div>
-          </div>
+          <AddressSelector
+            prefix="asal"
+            initialProvinsi={profile?.asal_provinsi}
+            initialKabupaten={profile?.asal_kabupaten}
+            initialKecamatan={profile?.asal_kecamatan}
+            initialDesa={profile?.asal_desa}
+          />
           <div className="mb-3">
             <label className="block font-mono text-xs uppercase mb-1">Alamat Lengkap (opsional)</label>
             <textarea
@@ -171,42 +143,13 @@ export default async function ProfilePage({
             Kota/kabupaten/provinsi dipakai untuk filter di Direktori, supaya
             alumni satu daerah mudah saling temu.
           </p>
-          <div className="grid grid-cols-2 gap-3 mb-3">
-            <div>
-              <label className="block font-mono text-xs uppercase mb-1">Desa</label>
-              <input
-                name="desa"
-                defaultValue={profile?.desa ?? ""}
-                className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
-              />
-            </div>
-            <div>
-              <label className="block font-mono text-xs uppercase mb-1">Kecamatan</label>
-              <input
-                name="kecamatan"
-                defaultValue={profile?.kecamatan ?? ""}
-                className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-3 mb-3">
-            <div>
-              <label className="block font-mono text-xs uppercase mb-1">Kabupaten</label>
-              <input
-                name="kabupaten"
-                defaultValue={profile?.kabupaten ?? ""}
-                className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
-              />
-            </div>
-            <div>
-              <label className="block font-mono text-xs uppercase mb-1">Provinsi</label>
-              <input
-                name="provinsi"
-                defaultValue={profile?.provinsi ?? ""}
-                className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
-              />
-            </div>
-          </div>
+          <AddressSelector
+            prefix="domisili"
+            initialProvinsi={profile?.provinsi}
+            initialKabupaten={profile?.kabupaten}
+            initialKecamatan={profile?.kecamatan}
+            initialDesa={profile?.desa}
+          />
           <div className="mb-3">
             <label className="block font-mono text-xs uppercase mb-1">Alamat Lengkap (opsional)</label>
             <textarea
