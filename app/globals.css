@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 body {
-  background-color: #0F172A;
-  color: #F8FAFC;
+  background-color: #F8FAFC;
+  color: #0F172A;
 }
 
 /* Garis hias bergaya buku tahunan */
 .rule {
-  border-top: 1px solid #334155;
+  border-top: 1px solid #E2E8F0;
 }
 
 .rule-thick {
@@ -24,8 +24,8 @@ body {
   width: 3.25rem;
   height: 3.25rem;
   border-radius: 9999px;
-  border: 2px solid #6366F1;
-  color: #6366F1;
+  border: 2px solid #4F46E5;
+  color: #4F46E5;
   font-family: var(--font-mono);
   font-size: 0.7rem;
   font-weight: 600;

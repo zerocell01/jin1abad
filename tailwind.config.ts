@@ -8,16 +8,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        white: "#1E293B", // Override white as Slate-800 for card backgrounds in dark mode
-        paper: "#0F172A", // Dark Slate background
-        ink: "#F8FAFC",   // Off-white text
+        white: "#FFFFFF",
+        paper: "#F8FAFC",   // Light Slate background
+        ink: "#0F172A",     // Dark Slate text
         maroon: {
-          DEFAULT: "#6366F1", // Indigo mapped as maroon to avoid code rewrites
-          dark: "#4F46E5",
+          DEFAULT: "#4F46E5", // Vibrant Indigo mapped as maroon
+          dark: "#3730A3",
         },
         gold: "#10B981",    // Emerald green accents
-        slate: "#94A3B8",   // Light slate text
-        line: "#334155",    // Slate-700 for borders
+        slate: "#64748B",   // Cool gray text
+        line: "#E2E8F0",    // Slate-200 for borders
       },
       fontFamily: {
         display: ["var(--font-outfit)"],
