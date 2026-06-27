@@ -90,7 +90,7 @@ const COORDINATES: Record<string, { lat: number; lng: number }> = {
   // Grobogan
   "grobogan": { lat: -7.0300, lng: 110.9211 },
   "penawangan": { lat: -7.0922, lng: 110.8306 },
-  "kluwan": { lat: -7.0903, lng: 110.8472 },
+  "kluwan": { lat: -7.0966, lng: 110.8531 },
 };
 
 const PROVINCE_COORDINATES: Record<string, { lat: number; lng: number }> = {
