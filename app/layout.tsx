@@ -50,10 +50,9 @@ export default function RootLayout({
       <body
         className={`${outfit.variable} ${jakarta.variable} ${mono.variable} font-body relative overflow-x-hidden min-h-screen`}
       >
-        {/* Abstract Background Blobs */}
-        <div className="absolute top-0 right-0 -z-10 w-[500px] h-[500px] rounded-full bg-indigo-200/25 blur-[120px] pointer-events-none" />
-        <div className="absolute top-[30vh] left-[-100px] -z-10 w-[600px] h-[600px] rounded-full bg-emerald-200/20 blur-[150px] pointer-events-none" />
-        <div className="absolute bottom-0 right-[-100px] -z-10 w-[500px] h-[500px] rounded-full bg-violet-200/20 blur-[120px] pointer-events-none" />
+        {/* Abstract Background Blobs - Sangat lembut dan samar agar tidak merusak fokus */}
+        <div className="absolute top-0 right-0 -z-10 w-[550px] h-[550px] rounded-full bg-indigo-200/10 blur-[160px] pointer-events-none" />
+        <div className="absolute top-[30vh] left-[-150px] -z-10 w-[650px] h-[650px] rounded-full bg-emerald-200/10 blur-[180px] pointer-events-none" />
 
         <Navbar />
         <main className="max-w-5xl mx-auto px-5 py-10 relative">{children}</main>
