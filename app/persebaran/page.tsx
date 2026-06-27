@@ -5,8 +5,8 @@ import MapPersebaran from "@/components/MapPersebaran";
 const COORDINATES: Record<string, { lat: number; lng: number }> = {
   // Pati & surrounding kecamatan
   "pati": { lat: -6.7513, lng: 111.0381 },
-  "margoyoso": { lat: -6.6167, lng: 111.0667 },
-  "kajen": { lat: -6.6231, lng: 111.0655 },
+  "margoyoso": { lat: -6.6067, lng: 111.0589 },
+  "kajen": { lat: -6.6067, lng: 111.0589 },
   "tayu": { lat: -6.5367, lng: 111.0428 },
   "trangkil": { lat: -6.6781, lng: 111.0531 },
   "juwana": { lat: -6.7169, lng: 111.1506 },

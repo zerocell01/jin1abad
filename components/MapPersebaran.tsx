@@ -20,14 +20,7 @@ export default function MapPersebaran({ locations }: MapProps) {
   const [leafletInstance, setLeafletInstance] = useState<any>(null);
 
   useEffect(() => {
-    // 1. Load Leaflet CSS
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
-    link.crossOrigin = "";
-    document.head.appendChild(link);
-
-    // 2. Load Leaflet JS
+    // Load Leaflet JS
     const script = document.createElement("script");
     script.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
     script.async = true;
@@ -39,7 +32,6 @@ export default function MapPersebaran({ locations }: MapProps) {
     };
 
     return () => {
-      document.head.removeChild(link);
       document.head.removeChild(script);
     };
   }, []);
@@ -61,7 +53,7 @@ export default function MapPersebaran({ locations }: MapProps) {
     }).addTo(map);
 
     // Special marker for Kajen, Margoyoso, Pati (Pusat Almamater)
-    const KAJEN_COORDS = [-6.6231, 111.0655] as [number, number];
+    const KAJEN_COORDS = [-6.6067, 111.0589] as [number, number];
     const kajenMarker = L.circleMarker(KAJEN_COORDS, {
       color: "#EF4444", // Red highlight for the almamater center
       fillColor: "#EF4444",
