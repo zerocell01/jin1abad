@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
+import PhotoLightbox from "@/components/PhotoLightbox";
 
 export async function generateMetadata({
   params,
@@ -65,25 +65,7 @@ export default async function AlbumDetailPage({
       {!photos || photos.length === 0 ? (
         <p className="text-slate font-body">Belum ada foto di album ini.</p>
       ) : (
-        <div className="grid sm:grid-cols-3 gap-4">
-          {photos.map((photo) => (
-            <figure key={photo.id} className="bg-white border border-line rounded-sm overflow-hidden">
-              <div className="relative w-full aspect-square">
-                <Image
-                  src={photo.image_url}
-                  alt={photo.caption ?? album.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              {photo.caption && (
-                <figcaption className="font-mono text-xs text-slate px-2 py-2">
-                  {photo.caption}
-                </figcaption>
-              )}
-            </figure>
-          ))}
-        </div>
+        <PhotoLightbox photos={photos} albumTitle={album.title} />
       )}
     </div>
   );
