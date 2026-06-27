@@ -18,9 +18,17 @@ export async function deletePhotos(albumId: string, photoIds: string[]) {
 
   if (!album) return { success: false, error: "Album tidak ditemukan" };
 
-  const isCreator = album.created_by === user.id;
+  // Get user role to check if admin
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
 
-  if (!isCreator) {
+  const isCreator = album.created_by === user.id;
+  const isAdmin = profile?.role === "admin";
+
+  if (!isCreator && !isAdmin) {
     return { success: false, error: "Anda tidak berhak menghapus foto di album ini" };
   }
 
