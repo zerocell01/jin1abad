@@ -33,7 +33,7 @@ export default async function AlumniProfilePage({
 
   return (
     <div>
-      <div className="flex items-start gap-5 rule-thick pb-8 mb-8">
+      <div className="flex items-start gap-5 rule-thick pt-8 pb-8 mb-8">
         <Avatar src={person.avatar_url} fallback={String(person.angkatan ?? "—")} size={80} className="text-base" />
         <div>
           <h1 className="font-display text-3xl">{person.full_name}</h1>
