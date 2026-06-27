@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import PhotoLightbox from "@/components/PhotoLightbox";
+import DeleteAlbumButton from "@/components/DeleteAlbumButton";
 
 export async function generateMetadata({
   params,
@@ -68,10 +69,17 @@ export default async function AlbumDetailPage({
 
   return (
     <div>
-      <p className="font-mono text-xs uppercase tracking-widest text-maroon mb-2">
-        Album
-      </p>
-      <h1 className="font-display text-3xl mb-2">{album.title}</h1>
+      <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-2">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-widest text-maroon mb-2">
+            Album
+          </p>
+          <h1 className="font-display text-3xl mb-1">{album.title}</h1>
+        </div>
+        {isEditable && (
+          <DeleteAlbumButton albumId={album.id} />
+        )}
+      </div>
       <p className="font-body text-sm text-slate mb-8">
         {album.description ? `${album.description} · ` : ""}
         dibuat oleh {album.creator?.full_name ?? "Alumni"}

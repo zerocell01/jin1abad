@@ -62,3 +62,56 @@ export async function deletePhotos(albumId: string, photoIds: string[]) {
   revalidatePath("/gallery");
   return { success: true };
 }
+
+export async function deleteAlbum(albumId: string) {
+  const supabase = createClient();
+  const { data: userData } = await supabase.auth.getUser();
+  const user = userData.user;
+  if (!user) return { success: false, error: "Unauthorized" };
+
+  // 1. Verify that the user owns the album or is an admin
+  const { data: album } = await supabase
+    .from("albums")
+    .select("created_by")
+    .eq("id", albumId)
+    .single();
+
+  if (!album) return { success: false, error: "Album tidak ditemukan" };
+
+  // Get user profile to check if admin
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+
+  const isCreator = album.created_by === user.id;
+  const isAdmin = profile?.role === "admin";
+
+  if (!isCreator && !isAdmin) {
+    return { success: false, error: "Anda tidak berhak menghapus album ini" };
+  }
+
+  // 2. Fetch and delete all photos of this album from Supabase Storage
+  const { data: files } = await supabase.storage
+    .from("album-photos")
+    .list(albumId);
+
+  if (files && files.length > 0) {
+    const paths = files.map((f) => `${albumId}/${f.name}`);
+    await supabase.storage.from("album-photos").remove(paths);
+  }
+
+  // 3. Delete the album from the database (will cascade delete photo records)
+  const { error: deleteError } = await supabase
+    .from("albums")
+    .delete()
+    .eq("id", albumId);
+
+  if (deleteError) {
+    return { success: false, error: deleteError.message };
+  }
+
+  revalidatePath("/gallery");
+  return { success: true };
+}
