@@ -244,27 +244,22 @@ export default function PhotoLightbox({
               />
               {/* Overlay on hover (disabled in manage mode) */}
               {!isManageMode && (
-                <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                  <span className="bg-white/90 text-ink text-xs font-mono uppercase px-2 py-1 rounded-sm tracking-wider shadow-sm">
-                    Lihat Foto
+                <div className="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 z-10">
+                  <span className="bg-white hover:bg-slate-50 text-ink text-[11px] font-mono uppercase px-2.5 py-1.5 rounded-sm tracking-wider shadow-sm font-semibold transition-colors">
+                    Lihat
+                  </span>
+                  <span
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDownload(photo.image_url, `foto-${i + 1}.jpg`);
+                    }}
+                    className="bg-maroon hover:bg-maroon-dark text-paper text-[11px] font-mono uppercase px-2.5 py-1.5 rounded-sm tracking-wider shadow-sm font-semibold transition-colors"
+                  >
+                    Unduh
                   </span>
                 </div>
               )}
             </div>
-
-            {/* Quick Download Button on Thumbnail */}
-            {!isManageMode && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleDownload(photo.image_url, `foto-${i + 1}.jpg`);
-                }}
-                className="absolute bottom-10 right-2 z-10 bg-white/90 hover:bg-white text-ink rounded-full p-2 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"
-                title="Unduh foto"
-              >
-                📥
-              </button>
-            )}
 
             {photo.caption && (
               <figcaption className="font-mono text-xs text-slate px-3 py-2 border-t border-line truncate">
