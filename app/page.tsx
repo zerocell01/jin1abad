@@ -4,6 +4,8 @@ import Avatar from "@/components/Avatar";
 
 export default async function HomePage() {
   const supabase = createClient();
+  const { data: userData } = await supabase.auth.getUser();
+  const user = userData.user;
 
   const { data: posts } = await supabase
     .from("posts")
@@ -36,12 +38,14 @@ export default async function HomePage() {
           >
             Lihat Direktori Alumni
           </Link>
-          <Link
-            href="/register"
-            className="border border-ink px-4 py-2 rounded-sm font-body text-sm hover:bg-ink hover:text-paper"
-          >
-            Daftar sebagai Alumni
-          </Link>
+          {!user && (
+            <Link
+              href="/register"
+              className="border border-ink px-4 py-2 rounded-sm font-body text-sm hover:bg-ink hover:text-paper"
+            >
+              Daftar sebagai Alumni
+            </Link>
+          )}
         </div>
         {alumniCount ? (
           <p className="font-mono text-xs text-slate mt-6">
