@@ -60,9 +60,41 @@ export default function MapPersebaran({ locations }: MapProps) {
       maxZoom: 20
     }).addTo(map);
 
-    // Add Markers
+    // Special marker for Kajen, Margoyoso, Pati (Pusat Almamater)
+    const KAJEN_COORDS = [-6.6231, 111.0655] as [number, number];
+    const kajenMarker = L.circleMarker(KAJEN_COORDS, {
+      color: "#EF4444", // Red highlight for the almamater center
+      fillColor: "#EF4444",
+      fillOpacity: 0.8,
+      weight: 2,
+      radius: 9,
+    }).addTo(map);
+
+    kajenMarker.bindPopup(`
+      <div style="font-family: var(--font-body), sans-serif; font-size: 13px; color: #0F172A;">
+        <h4 style="margin: 0 0 4px 0; font-family: var(--font-display); font-size: 14px; font-weight: 600; color: #EF4444;">
+          Kajen, Margoyoso, Pati
+        </h4>
+        <p style="margin: 0; font-size: 12px; color: #64748B;">
+          Pusat Almamater Matholi'ul Falah
+        </p>
+      </div>
+    `);
+
+    // Add Markers and Connection Lines
     const markers = locations.map((loc) => {
       if (!loc.lat || !loc.lng) return null;
+
+      // Draw connection line from Kajen to other locations
+      const distance = Math.sqrt(Math.pow(loc.lat - KAJEN_COORDS[0], 2) + Math.pow(loc.lng - KAJEN_COORDS[1], 2));
+      if (distance > 0.01) { // Only draw lines for different locations
+        L.polyline([KAJEN_COORDS, [loc.lat, loc.lng]], {
+          color: "#6366F1", // Soft Indigo connection line
+          weight: 1.5,
+          opacity: 0.4,
+          dashArray: "4, 6" // Dashed line
+        }).addTo(map);
+      }
 
       // Color/Radius based on count
       const marker = L.circleMarker([loc.lat, loc.lng], {
@@ -95,7 +127,7 @@ export default function MapPersebaran({ locations }: MapProps) {
 
     // Fit map bounds to show all markers if there are any
     if (markers.length > 0) {
-      const group = new L.featureGroup(markers);
+      const group = new L.featureGroup([kajenMarker, ...markers]);
       map.fitBounds(group.getBounds().pad(0.1));
     }
 
