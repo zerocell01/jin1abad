@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 
 type GeoData = {
   count: number;
-  kotaMap: Record<string, number>;
+  kecamatanMap: Record<string, number>;
   kabupatenMap: Record<string, number>;
 };
 
@@ -21,13 +21,13 @@ export default async function PersebaranPage({
 
   const { data: profiles } = await supabase
     .from("profiles")
-    .select("provinsi, kota, kabupaten, asal_provinsi, asal_kota, asal_kabupaten");
+    .select("provinsi, kecamatan, kabupaten, asal_provinsi, asal_kecamatan, asal_kabupaten");
 
   const provField = mode === "asal" ? "asal_provinsi" : "provinsi";
-  const kotaField = mode === "asal" ? "asal_kota" : "kota";
+  const kecamatanField = mode === "asal" ? "asal_kecamatan" : "kecamatan";
   const kabupatenField = mode === "asal" ? "asal_kabupaten" : "kabupaten";
   const filterParamProv = mode === "asal" ? "asal_provinsi" : "provinsi";
-  const filterParamKota = mode === "asal" ? "asal_kota" : "kota";
+  const filterParamKec = mode === "asal" ? "asal_kecamatan" : "kecamatan";
   const filterParamKab = mode === "asal" ? "asal_kabupaten" : "kabupaten";
 
   const byProvinsi: Record<string, GeoData> = {};
@@ -39,12 +39,12 @@ export default async function PersebaranPage({
       tanpaProvinsi++;
       continue;
     }
-    byProvinsi[prov] ??= { count: 0, kotaMap: {}, kabupatenMap: {} };
+    byProvinsi[prov] ??= { count: 0, kecamatanMap: {}, kabupatenMap: {} };
     byProvinsi[prov].count++;
 
-    const kota = p[kotaField]?.trim();
-    if (kota) {
-      byProvinsi[prov].kotaMap[kota] = (byProvinsi[prov].kotaMap[kota] ?? 0) + 1;
+    const kecamatan = p[kecamatanField]?.trim();
+    if (kecamatan) {
+      byProvinsi[prov].kecamatanMap[kecamatan] = (byProvinsi[prov].kecamatanMap[kecamatan] ?? 0) + 1;
     }
     const kabupaten = p[kabupatenField]?.trim();
     if (kabupaten) {
@@ -93,7 +93,7 @@ export default async function PersebaranPage({
       <p className="font-body text-sm text-slate mb-8">
         {totalTerisi} dari {totalAlumni} alumni sudah mengisi{" "}
         {mode === "asal" ? "alamat asal" : "domisili sekarang"}. Klik nama
-        provinsi atau kota untuk lihat alumninya di direktori.
+        provinsi atau kecamatan untuk lihat alumninya di direktori.
       </p>
 
       {provinsiList.length === 0 ? (
@@ -105,7 +105,7 @@ export default async function PersebaranPage({
         <div className="flex flex-col gap-6">
           {provinsiList.map(([provinsi, data]) => {
             const widthPct = Math.max((data.count / maxCount) * 100, 4);
-            const kotaTop = topEntries(data.kotaMap);
+            const kecamatanTop = topEntries(data.kecamatanMap);
             const kabupatenTop = topEntries(data.kabupatenMap);
 
             return (
@@ -129,15 +129,15 @@ export default async function PersebaranPage({
                   />
                 </div>
 
-                {(kotaTop.length > 0 || kabupatenTop.length > 0) && (
+                {(kecamatanTop.length > 0 || kabupatenTop.length > 0) && (
                   <div className="flex flex-wrap gap-2">
-                    {kotaTop.map(([kota, count]) => (
+                    {kecamatanTop.map(([kecamatan, count]) => (
                       <Link
-                        key={`kota-${kota}`}
-                        href={`/alumni?${filterParamKota}=${encodeURIComponent(kota)}`}
+                        key={`kec-${kecamatan}`}
+                        href={`/alumni?${filterParamKec}=${encodeURIComponent(kecamatan)}`}
                         className="font-mono text-xs border border-line rounded-sm px-2 py-1 hover:border-maroon hover:text-maroon"
                       >
-                        {kota} · {count}
+                        Kec. {kecamatan} · {count}
                       </Link>
                     ))}
                     {kabupatenTop.map(([kabupaten, count]) => (

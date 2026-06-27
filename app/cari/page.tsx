@@ -26,8 +26,8 @@ export default async function CariPage({
     ] = await Promise.all([
       supabase
         .from("profiles")
-        .select("id, full_name, angkatan, avatar_url, jurusan, pekerjaan")
-        .or(`full_name.ilike.%${q}%,jurusan.ilike.%${q}%,pekerjaan.ilike.%${q}%`)
+        .select("id, full_name, angkatan, avatar_url, pekerjaan")
+        .or(`full_name.ilike.%${q}%,pekerjaan.ilike.%${q}%`)
         .limit(10),
       supabase
         .from("posts")
@@ -112,10 +112,11 @@ export default async function CariPage({
                       <p className="font-display text-base group-hover:text-maroon">
                         {p.full_name}
                       </p>
-                      <p className="font-body text-xs text-slate">
-                        {p.jurusan ?? ""}
-                        {p.pekerjaan ? ` · ${p.pekerjaan}` : ""}
-                      </p>
+                      {p.pekerjaan && (
+                        <p className="font-body text-xs text-slate">
+                          {p.pekerjaan}
+                        </p>
+                      )}
                     </div>
                   </Link>
                 ))}

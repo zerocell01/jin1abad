@@ -45,7 +45,7 @@ export default async function Navbar() {
       {user ? (
         <>
           <Link href="/dashboard" className="hover:text-maroon">
-            Dashboard
+            Profil
           </Link>
           <LogoutButton />
         </>

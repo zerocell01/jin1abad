@@ -8,10 +8,12 @@ export default async function AlumniDirectoryPage({
   searchParams: {
     angkatan?: string;
     kelas?: string;
-    kota?: string;
+    desa?: string;
+    kecamatan?: string;
     kabupaten?: string;
     provinsi?: string;
-    asal_kota?: string;
+    asal_desa?: string;
+    asal_kecamatan?: string;
     asal_kabupaten?: string;
     asal_provinsi?: string;
     q?: string;
@@ -22,7 +24,7 @@ export default async function AlumniDirectoryPage({
   let query = supabase
     .from("profiles")
     .select(
-      "id, full_name, avatar_url, angkatan, kelas, jurusan, pekerjaan, kota, kabupaten, provinsi, asal_kota, asal_kabupaten, asal_provinsi"
+      "id, full_name, avatar_url, angkatan, kelas, pekerjaan, desa, kecamatan, kabupaten, provinsi, asal_desa, asal_kecamatan, asal_kabupaten, asal_provinsi"
     )
     .order("angkatan", { ascending: false });
 
@@ -32,8 +34,11 @@ export default async function AlumniDirectoryPage({
   if (searchParams.kelas) {
     query = query.eq("kelas", searchParams.kelas);
   }
-  if (searchParams.kota) {
-    query = query.eq("kota", searchParams.kota);
+  if (searchParams.desa) {
+    query = query.eq("desa", searchParams.desa);
+  }
+  if (searchParams.kecamatan) {
+    query = query.eq("kecamatan", searchParams.kecamatan);
   }
   if (searchParams.kabupaten) {
     query = query.eq("kabupaten", searchParams.kabupaten);
@@ -41,8 +46,11 @@ export default async function AlumniDirectoryPage({
   if (searchParams.provinsi) {
     query = query.eq("provinsi", searchParams.provinsi);
   }
-  if (searchParams.asal_kota) {
-    query = query.eq("asal_kota", searchParams.asal_kota);
+  if (searchParams.asal_desa) {
+    query = query.eq("asal_desa", searchParams.asal_desa);
+  }
+  if (searchParams.asal_kecamatan) {
+    query = query.eq("asal_kecamatan", searchParams.asal_kecamatan);
   }
   if (searchParams.asal_kabupaten) {
     query = query.eq("asal_kabupaten", searchParams.asal_kabupaten);
@@ -59,28 +67,31 @@ export default async function AlumniDirectoryPage({
   // Ambil daftar opsi unik untuk tiap filter (cuma yang ada dropdown-nya)
   const { data: filterSource } = await supabase
     .from("profiles")
-    .select("angkatan, kelas, kota, kabupaten, provinsi");
+    .select("angkatan, kelas, desa, kecamatan, kabupaten, provinsi");
 
-  const uniq = (key: "angkatan" | "kelas" | "kota" | "kabupaten" | "provinsi") =>
+  const uniq = (key: "angkatan" | "kelas" | "desa" | "kecamatan" | "kabupaten" | "provinsi") =>
     Array.from(
       new Set((filterSource ?? []).map((p: any) => p[key]).filter(Boolean))
     ).sort();
 
   const angkatanOptions = uniq("angkatan");
   const kelasOptions = uniq("kelas");
-  const kotaOptions = uniq("kota");
+  const desaOptions = uniq("desa");
+  const kecamatanOptions = uniq("kecamatan");
   const kabupatenOptions = uniq("kabupaten");
   const provinsiOptions = uniq("provinsi");
 
   const activeFilters = [
     searchParams.angkatan && `Angkatan ${searchParams.angkatan}`,
     searchParams.kelas && `Kelas ${searchParams.kelas}`,
-    searchParams.kota && `Kota ${searchParams.kota}`,
+    searchParams.desa && `Desa ${searchParams.desa}`,
+    searchParams.kecamatan && `Kec. ${searchParams.kecamatan}`,
     searchParams.kabupaten && `Kab. ${searchParams.kabupaten}`,
     searchParams.provinsi && searchParams.provinsi,
-    searchParams.asal_kota && `Asal: ${searchParams.asal_kota}`,
+    searchParams.asal_desa && `Asal Desa: ${searchParams.asal_desa}`,
+    searchParams.asal_kecamatan && `Asal Kec.: ${searchParams.asal_kecamatan}`,
     searchParams.asal_kabupaten && `Asal Kab.: ${searchParams.asal_kabupaten}`,
-    searchParams.asal_provinsi && `Asal: ${searchParams.asal_provinsi}`,
+    searchParams.asal_provinsi && `Asal Prov.: ${searchParams.asal_provinsi}`,
   ].filter(Boolean);
 
   return (
@@ -147,12 +158,24 @@ export default async function AlumniDirectoryPage({
           ))}
         </select>
         <select
-          name="kota"
-          defaultValue={searchParams.kota ?? ""}
+          name="kecamatan"
+          defaultValue={searchParams.kecamatan ?? ""}
           className="border border-line rounded-sm px-3 py-2 bg-white text-sm focus:outline-none focus:border-maroon"
         >
-          <option value="">Semua Kota (Domisili)</option>
-          {kotaOptions.map((v) => (
+          <option value="">Semua Kecamatan (Domisili)</option>
+          {kecamatanOptions.map((v) => (
+            <option key={v} value={v}>
+              {v}
+            </option>
+          ))}
+        </select>
+        <select
+          name="desa"
+          defaultValue={searchParams.desa ?? ""}
+          className="border border-line rounded-sm px-3 py-2 bg-white text-sm focus:outline-none focus:border-maroon"
+        >
+          <option value="">Semua Desa (Domisili)</option>
+          {desaOptions.map((v) => (
             <option key={v} value={v}>
               {v}
             </option>
@@ -201,22 +224,23 @@ export default async function AlumniDirectoryPage({
                     <span className="font-mono text-xs text-slate"> · Kelas {person.kelas}</span>
                   ) : null}
                 </p>
-                <p className="font-body text-sm text-slate">
-                  {person.jurusan ?? "Jurusan belum diisi"}
-                  {person.pekerjaan ? ` · ${person.pekerjaan}` : ""}
-                </p>
-                {(person.kota || person.kabupaten || person.provinsi) && (
+                {person.pekerjaan && (
+                  <p className="font-body text-sm text-slate">
+                    {person.pekerjaan}
+                  </p>
+                )}
+                {(person.desa || person.kecamatan || person.kabupaten || person.provinsi) && (
                   <p className="font-mono text-xs text-slate mt-0.5">
                     Domisili:{" "}
-                    {[person.kota, person.kabupaten, person.provinsi]
+                    {[person.desa, person.kecamatan, person.kabupaten, person.provinsi]
                       .filter(Boolean)
                       .join(", ")}
                   </p>
                 )}
-                {(person.asal_kota || person.asal_kabupaten || person.asal_provinsi) && (
+                {(person.asal_desa || person.asal_kecamatan || person.asal_kabupaten || person.asal_provinsi) && (
                   <p className="font-mono text-xs text-slate mt-0.5">
                     Asal:{" "}
-                    {[person.asal_kota, person.asal_kabupaten, person.asal_provinsi]
+                    {[person.asal_desa, person.asal_kecamatan, person.asal_kabupaten, person.asal_provinsi]
                       .filter(Boolean)
                       .join(", ")}
                   </p>

@@ -103,7 +103,7 @@ export default async function DashboardPage() {
   return (
     <div>
       <p className="font-mono text-xs uppercase tracking-widest text-maroon mb-2">
-        Dashboard
+        Profil
       </p>
       <h1 className="font-display text-3xl mb-1">
         Halo, {profile?.full_name ?? "Alumni"}

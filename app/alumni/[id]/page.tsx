@@ -37,26 +37,27 @@ export default async function AlumniProfilePage({
         <Avatar src={person.avatar_url} fallback={String(person.angkatan ?? "—")} size={80} className="text-base" />
         <div>
           <h1 className="font-display text-3xl">{person.full_name}</h1>
-          <p className="font-body text-slate mt-1">
-            {person.jurusan ?? "Jurusan belum diisi"}
-            {person.kelas ? ` · Kelas ${person.kelas}` : ""}
-          </p>
+          {person.kelas && (
+            <p className="font-body text-slate mt-1">
+              Kelas {person.kelas}
+            </p>
+          )}
           {person.pekerjaan && (
             <p className="font-body text-sm text-slate mt-1">
               {person.pekerjaan}
               {person.perusahaan ? ` di ${person.perusahaan}` : ""}
             </p>
           )}
-          {(person.kota || person.kabupaten || person.provinsi) && (
+          {(person.desa || person.kecamatan || person.kabupaten || person.provinsi) && (
             <p className="font-mono text-xs text-slate mt-1">
-              Domisili: {[person.kota, person.kabupaten, person.provinsi]
+              Domisili: {[person.desa, person.kecamatan, person.kabupaten, person.provinsi]
                 .filter(Boolean)
                 .join(", ")}
             </p>
           )}
-          {(person.asal_kota || person.asal_kabupaten || person.asal_provinsi) && (
+          {(person.asal_desa || person.asal_kecamatan || person.asal_kabupaten || person.asal_provinsi) && (
             <p className="font-mono text-xs text-slate mt-0.5">
-              Asal: {[person.asal_kota, person.asal_kabupaten, person.asal_provinsi]
+              Asal: {[person.asal_desa, person.asal_kecamatan, person.asal_kabupaten, person.asal_provinsi]
                 .filter(Boolean)
                 .join(", ")}
             </p>
@@ -80,18 +81,11 @@ export default async function AlumniProfilePage({
               {person.asal_alamat}
             </p>
           )}
-          {person.show_contact && (person.linkedin_url || person.whatsapp) && (
+          {person.show_contact && person.whatsapp && (
             <div className="flex gap-3 mt-4 font-mono text-xs text-maroon">
-              {person.linkedin_url && (
-                <a href={person.linkedin_url} target="_blank" className="underline">
-                  LinkedIn
-                </a>
-              )}
-              {person.whatsapp && (
-                <a href={`https://wa.me/${person.whatsapp}`} target="_blank" className="underline">
-                  WhatsApp
-                </a>
-              )}
+              <a href={`https://wa.me/${person.whatsapp}`} target="_blank" className="underline">
+                WhatsApp
+              </a>
             </div>
           )}
         </div>

@@ -57,7 +57,7 @@ export default async function ProfilePage({
             className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
           />
         </div>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           <div>
             <label className="block font-mono text-xs uppercase mb-1">Angkatan</label>
             <input
@@ -81,14 +81,6 @@ export default async function ProfilePage({
               <option value="C">C</option>
               <option value="D">D</option>
             </select>
-          </div>
-          <div>
-            <label className="block font-mono text-xs uppercase mb-1">Jurusan</label>
-            <input
-              name="jurusan"
-              defaultValue={profile?.jurusan ?? ""}
-              className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
-            />
           </div>
         </div>
         <div className="grid grid-cols-2 gap-3">
@@ -128,13 +120,23 @@ export default async function ProfilePage({
           </p>
           <div className="grid grid-cols-2 gap-3 mb-3">
             <div>
-              <label className="block font-mono text-xs uppercase mb-1">Kota</label>
+              <label className="block font-mono text-xs uppercase mb-1">Desa</label>
               <input
-                name="asal_kota"
-                defaultValue={profile?.asal_kota ?? ""}
+                name="asal_desa"
+                defaultValue={profile?.asal_desa ?? ""}
                 className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
               />
             </div>
+            <div>
+              <label className="block font-mono text-xs uppercase mb-1">Kecamatan</label>
+              <input
+                name="asal_kecamatan"
+                defaultValue={profile?.asal_kecamatan ?? ""}
+                className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3 mb-3">
             <div>
               <label className="block font-mono text-xs uppercase mb-1">Kabupaten</label>
               <input
@@ -143,14 +145,14 @@ export default async function ProfilePage({
                 className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
               />
             </div>
-          </div>
-          <div className="mb-3">
-            <label className="block font-mono text-xs uppercase mb-1">Provinsi</label>
-            <input
-              name="asal_provinsi"
-              defaultValue={profile?.asal_provinsi ?? ""}
-              className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
-            />
+            <div>
+              <label className="block font-mono text-xs uppercase mb-1">Provinsi</label>
+              <input
+                name="asal_provinsi"
+                defaultValue={profile?.asal_provinsi ?? ""}
+                className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
+              />
+            </div>
           </div>
           <div className="mb-3">
             <label className="block font-mono text-xs uppercase mb-1">Alamat Lengkap (opsional)</label>
@@ -181,13 +183,23 @@ export default async function ProfilePage({
           </p>
           <div className="grid grid-cols-2 gap-3 mb-3">
             <div>
-              <label className="block font-mono text-xs uppercase mb-1">Kota</label>
+              <label className="block font-mono text-xs uppercase mb-1">Desa</label>
               <input
-                name="kota"
-                defaultValue={profile?.kota ?? ""}
+                name="desa"
+                defaultValue={profile?.desa ?? ""}
                 className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
               />
             </div>
+            <div>
+              <label className="block font-mono text-xs uppercase mb-1">Kecamatan</label>
+              <input
+                name="kecamatan"
+                defaultValue={profile?.kecamatan ?? ""}
+                className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3 mb-3">
             <div>
               <label className="block font-mono text-xs uppercase mb-1">Kabupaten</label>
               <input
@@ -196,14 +208,14 @@ export default async function ProfilePage({
                 className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
               />
             </div>
-          </div>
-          <div className="mb-3">
-            <label className="block font-mono text-xs uppercase mb-1">Provinsi</label>
-            <input
-              name="provinsi"
-              defaultValue={profile?.provinsi ?? ""}
-              className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
-            />
+            <div>
+              <label className="block font-mono text-xs uppercase mb-1">Provinsi</label>
+              <input
+                name="provinsi"
+                defaultValue={profile?.provinsi ?? ""}
+                className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
+              />
+            </div>
           </div>
           <div className="mb-3">
             <label className="block font-mono text-xs uppercase mb-1">Alamat Lengkap (opsional)</label>
@@ -223,24 +235,14 @@ export default async function ProfilePage({
             Tampilkan alamat domisili lengkap ke alumni lain
           </label>
         </div>
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className="block font-mono text-xs uppercase mb-1">Link LinkedIn</label>
-            <input
-              name="linkedin_url"
-              defaultValue={profile?.linkedin_url ?? ""}
-              className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
-            />
-          </div>
-          <div>
-            <label className="block font-mono text-xs uppercase mb-1">No. WhatsApp</label>
-            <input
-              name="whatsapp"
-              placeholder="62812xxxxxxx"
-              defaultValue={profile?.whatsapp ?? ""}
-              className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
-            />
-          </div>
+        <div>
+          <label className="block font-mono text-xs uppercase mb-1">No. WhatsApp</label>
+          <input
+            name="whatsapp"
+            placeholder="62812xxxxxxx"
+            defaultValue={profile?.whatsapp ?? ""}
+            className="w-full border border-line rounded-sm px-3 py-2 bg-white focus:outline-none focus:border-maroon"
+          />
         </div>
         <label className="flex items-center gap-2 font-body text-sm">
           <input
